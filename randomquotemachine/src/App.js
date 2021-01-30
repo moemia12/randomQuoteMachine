@@ -1,7 +1,7 @@
-import Button from './components/Button';
 import { random } from 'lodash';
 import './App.css';
 import React, { Component } from 'react';
+import QuoteMachine from './components/QuoteMachine';
 
 class App extends Component {
   constructor(props){
@@ -10,7 +10,9 @@ class App extends Component {
       quotes: [],
       selectedQuoteIndex: null,
     }
-    this.selectQuoteIndex = this.selectQuoteIndex.bind(this);
+    this.assignNewQuoteIndex = this.assignNewQuoteIndex.bind(this);
+    this.selectQuoteIndex = this.generateQuoteIndex.bind(this);
+    
   }
   nextQuoteClickHandler(){
     
@@ -20,34 +22,37 @@ class App extends Component {
 componentDidMount(){
   fetch('https://gist.githubusercontent.com/natebass/b0a548425a73bdf8ea5c618149fe1fce/raw/f4231cd5961f026264bb6bb3a6c41671b044f1f4/quotes.json')
   .then(data => data.json())
-  .then(quotes => this.setState({quotes}, () =>{
-    this.setState({selectedQuoteIndex: this.selectQuoteIndex()})
-  }))
+  .then(quotes => this.setState({quotes}, this.assignNewQuoteIndex()));
 }
 
 //Function that gets the random selected quote
 get selectedQuote(){
-  if(!this.state.quotes.length || !Number.isInteger(this.state.selectedQuoteIndex)){
-    return;
+  if(!this.state.quotes.length || !Number.isInteger(this.state.selectedQuoteIndex));            { {/*Checking to see if the quotes has a length OR whether the index exists */}
+    return undefined;                                                                          {/*Return undefined if not*/}
   }
 
-  return this.state.quotes[this.state.selectedQuoteIndex];
+  return this.state.quotes[this.state.selectedQuoteIndex];                                     {/*Else return the selected quote */}
 }
 
-//Function to select the quote index
-selectQuoteIndex(){
+//Method to generate the quote index by returning an interger from state.quotes (Using Lodash for the Random func)
+generateQuoteIndex(){
   if(!this.state.quotes.length){
-    return;
+    return undefined;
   }
   return random(0, this.state.quotes.length -1)
+}
+
+// Method to assign the index quote to the Button component below
+assignNewQuoteIndex(){
+  this.setState({ selectedQuoteIndex: this.generateQuoteIndex() });
+
 }
 
   render(){
     console.log(this.state.selectedQuoteIndex);
     return (
       <div className="App" id="quote-box">
-          {this.selectedQuote ? `"${this.selectedQuote.quote}" - ${this.selectedQuote.author}` : ''} {/*Uses the selectedQuote func to receive random quote & autho */}
-          <Button buttonDisplayName="Next Quote" onClick={this.nextQuoteClickHandler()}/> 
+          <QuoteMachine selectedQuote={this.selectedQuote} assignNewQuoteIndex={this.assignNewQuoteIndex}/>
       </div>
     );
   }
