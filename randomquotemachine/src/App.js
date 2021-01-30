@@ -16,6 +16,7 @@ class App extends Component {
     
   }
 
+// Extracting Random quotes Data from gist via GitHub
 componentDidMount(){
   fetch('https://gist.githubusercontent.com/natebass/b0a548425a73bdf8ea5c618149fe1fce/raw/f4231cd5961f026264bb6bb3a6c41671b044f1f4/quotes.json')
   .then(data => data.json())
@@ -24,6 +25,7 @@ componentDidMount(){
   }))
 }
 
+//Function that gets the random selected quote
 get selectedQuote(){
   if(!this.state.quotes.length || !Number.isInteger(this.state.selectedQuoteIndex)){
     return;
@@ -32,6 +34,7 @@ get selectedQuote(){
   return this.state.quotes[this.state.selectedQuoteIndex];
 }
 
+//Function to select the quote index
 selectQuoteIndex(){
   if(!this.state.quotes.length){
     return;
@@ -43,8 +46,8 @@ selectQuoteIndex(){
     console.log(this.state.selectedQuoteIndex);
     return (
       <div className="App" id="quote-box">
-          {this.selectedQuote ? `"${this.selectedQuote.quote}" - ${this.selectedQuote.author}` : ''}
-          <Button buttonDisplayName="Next Quote" onClick={this.nextQuoteClickHandler()}/>
+          {this.selectedQuote ? `"${this.selectedQuote.quote}" - ${this.selectedQuote.author}` : ''} {/*Uses the selectedQuote func to receive random quote & autho */}
+          <Button buttonDisplayName="Next Quote" onClick={this.nextQuoteClickHandler()}/> 
       </div>
     );
   }
