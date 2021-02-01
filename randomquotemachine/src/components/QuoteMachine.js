@@ -2,10 +2,12 @@ import React from 'react';
 import Button from './Button';
 
 const QuoteMachine = (props) =>(
-    <>
-    {props.selectedQuote ? `"${props.selectedQuote.quote}" - ${props.selectedQuote.author}` : ''} {/*Uses the selectedQuote func to receive random quote & autho */}
+ <React.Fragment>
+    {props.selectedQuote ? `"${props.selectedQuote.quote}" - ${props.selectedQuote.author}` : ''} 
     <Button buttonDisplayName="Next Quote" clickHandler={props.assignNewQuoteIndex}/>
-    </>
+ </React.Fragment>
 );
 
-export default QuoteMachine;
+
+
+export default QuoteMachine; 

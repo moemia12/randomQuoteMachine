@@ -1,8 +1,10 @@
 import { random } from 'lodash';
 import './App.css';
-import React, { Component } from 'react';
-import QuoteMachine from './components/QuoteMachine';
+import React, { Component } from 'react'
+import QuoteMachine from './components/QuoteMachine'
 
+
+// Global App class for the Random Quote Machine
 class App extends Component {
   constructor(props){
     super(props);
@@ -11,10 +13,7 @@ class App extends Component {
       selectedQuoteIndex: null,
     }
     this.assignNewQuoteIndex = this.assignNewQuoteIndex.bind(this);
-    this.selectQuoteIndex = this.generateQuoteIndex.bind(this);
-    
-  }
-  nextQuoteClickHandler(){
+    this.selectQuoteIndex = this.generateNewQuoteIndex.bind(this);
     
   }
 
@@ -30,12 +29,11 @@ get selectedQuote(){
   if(!this.state.quotes.length || !Number.isInteger(this.state.selectedQuoteIndex));            { {/*Checking to see if the quotes has a length OR whether the index exists */}
     return undefined;                                                                          {/*Return undefined if not*/}
   }
-
   return this.state.quotes[this.state.selectedQuoteIndex];                                     {/*Else return the selected quote */}
 }
 
 //Method to generate the quote index by returning an interger from state.quotes (Using Lodash for the Random func)
-generateQuoteIndex(){
+generateNewQuoteIndex(){
   if(!this.state.quotes.length){
     return undefined;
   }
@@ -49,7 +47,6 @@ assignNewQuoteIndex(){
 }
 
   render(){
-    console.log(this.state.selectedQuoteIndex);
     return (
       <div className="App" id="quote-box">
           <QuoteMachine selectedQuote={this.selectedQuote} assignNewQuoteIndex={this.assignNewQuoteIndex}/>
