@@ -1,15 +1,15 @@
 import { random } from 'lodash';
 import 'typeface-roboto';
-import React, { Component } from 'react'
-import QuoteMachine from './components/QuoteMachine'
-import { Grid, withStyles } from '@material-ui/core'
+import React, { Component } from 'react';
+import QuoteMachine from './components/QuoteMachine';
+import { Grid, withStyles } from '@material-ui/core';
 
 
 const styles = {
   container: {
     display: 'flex',
     height: '100vh',
-    alignItems: 'center'
+    alignItems: 'center',
   }
 }
 
@@ -20,12 +20,15 @@ class App extends Component {
     this.state = {
       quotes: [],
       selectedQuoteIndex: null,
+      background: 'green'
     }
 
     //Binding methods
     this.assignNewQuoteIndex = this.assignNewQuoteIndex.bind(this);
     this.generateNewQuoteIndex = this.generateNewQuoteIndex.bind(this);
-
+    this.changeBackground = this.changeBackground.bind(this);
+    this.backgroundQuoteChange = this.backgroundQuoteChange.bind(this);
+    
   }
 
   // Extracting Random quotes Data from gist via GitHub
@@ -37,11 +40,10 @@ class App extends Component {
 
   //Function that gets the random selected quote
   get selectedQuote() {
-    if (!this.state.quotes.length || !Number.isInteger(this.state.selectedQuoteIndex)) {
-      {/*Checking to see if the quotes has a length OR whether the index exists */ }
+    if (!this.state.quotes.length || !Number.isInteger(this.state.selectedQuoteIndex))            {{/*Checking to see if the quotes has a length OR whether the index exists */ }
       return undefined; {/*Return undefined if not*/ }
     }
-    return this.state.quotes[this.state.selectedQuoteIndex]; {/*Else return the selected quote */ }
+    return this.state.quotes[this.state.selectedQuoteIndex];                                      {/*Else return the selected quote */ }
   }
 
   //Method to generate the quote index by returning an interger from state.quotes (Using Lodash for the Random func)
@@ -55,17 +57,38 @@ class App extends Component {
   // Method to assign the index quote to the Button component below
   assignNewQuoteIndex() {
     this.setState({ selectedQuoteIndex: this.generateNewQuoteIndex() });
+  
+  }
 
+  //Function to change color on click
+  changeBackground() {
+    let background = "#" + ((1<<24)*Math.random() | 0).toString(16);
+    this.setState({background});
+  }
+  
+  //Helper function to change quote & background color onClick
+  backgroundQuoteChange(){
+    this.assignNewQuoteIndex();
+    this.changeBackground();
   }
 
   render() {
     return (
+      <div style={{
+        width: '100vw',
+        height: '100vh',
+        backgroundColor: this.state.background
+      }}>
       <Grid className={this.props.classes.container} id="quote-box" justify='center' container>
-        <Grid xs={11} lg={8} item>
-          <QuoteMachine selectedQuote={this.selectedQuote} assignNewQuoteIndex={this.assignNewQuoteIndex} />
+        <Grid xs={9} lg={5} item>
+         { 
+          this.selectedQuote ? 
+         <QuoteMachine selectedQuote={this.selectedQuote} backgroundQuoteChange={this.backgroundQuoteChange}/>
+          : null
+        }
         </Grid>
-
       </Grid>
+      </div>
     );
   }
 
