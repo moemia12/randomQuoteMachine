@@ -3,6 +3,7 @@ import 'typeface-roboto';
 import React, { Component } from 'react';
 import QuoteMachine from './components/QuoteMachine';
 import { Grid, withStyles } from '@material-ui/core';
+import transitions from '@material-ui/core/styles/transitions';
 
 
 const styles = {
@@ -12,6 +13,7 @@ const styles = {
     alignItems: 'center',
   }
 }
+
 
 // Global App class for the Random Quote Machine - Setting current states for "quotes" & "selectedQuoteIndex"
 class App extends Component {
@@ -62,8 +64,8 @@ class App extends Component {
 
   //Function to change color on click
   changeBackground() {
-    let background = "#" + ((1<<24)*Math.random() | 0).toString(16);
-    this.setState({background});
+      let background = "#" + ((1<<24)*Math.random() | 0).toString(16);
+      this.setState({background});
   }
   
   //Helper function to change quote & background color onClick
@@ -77,10 +79,11 @@ class App extends Component {
       <div style={{
         width: '100vw',
         height: '100vh',
-        backgroundColor: this.state.background
+        backgroundColor: this.state.background,
+        transition: 'ease-in-out 0.5s'
       }}>
       <Grid className={this.props.classes.container} id="quote-box" justify='center' container>
-        <Grid xs={9} lg={5} item>
+        <Grid xs={9} lg={6} item>
          { 
           this.selectedQuote ? 
          <QuoteMachine selectedQuote={this.selectedQuote} backgroundQuoteChange={this.backgroundQuoteChange}/>

@@ -8,19 +8,21 @@ import Typography from '@material-ui/core/Typography';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons'
 
+
+
 const QuoteMachine = ({ backgroundQuoteChange, selectedQuote}) => (
-   <Card>
+   <Card style={{height: '30rem'}}>
       <CardContent>
 
-         <Typography id="text">
+         <Typography style={{fontSize: 40}} id="text">
             {selectedQuote.quote} - <span id='author'>{selectedQuote.author}</span>
          </Typography>
 
       </CardContent>
       <CardActions>
-         <Button id="new-quote" size={'small'} onClick={backgroundQuoteChange}>Next Quote</Button>
+         <Button style={{fontSize: 20, position: 'relative', top: '10rem', left: '5rem', marginTop: '-10rem'}} id="new-quote" size={'small'} onClick={backgroundQuoteChange}>Next Quote</Button>
          <IconButton id="tweet-quote" target="_blank" href={`https://twitter.com/intent/tweet?text=${selectedQuote.quote}`}>
-            <FontAwesomeIcon icon={faTwitter} size='md'></FontAwesomeIcon>
+            <FontAwesomeIcon style={{position: 'relative', top: '10rem', left: '5rem', marginTop: '-10rem'}}icon={faTwitter} size='lg'></FontAwesomeIcon>
          </IconButton>
       </CardActions>
 
