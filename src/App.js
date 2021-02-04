@@ -2,8 +2,9 @@ import { random } from 'lodash';
 import 'typeface-roboto';
 import React, { Component } from 'react';
 import QuoteMachine from './components/QuoteMachine';
-import { Grid, withStyles } from '@material-ui/core';
-import transitions from '@material-ui/core/styles/transitions';
+import Grid from '@material-ui/core/Grid';
+import { withStyles } from '@material-ui/core/styles'
+
 
 
 const styles = {
@@ -76,12 +77,24 @@ class App extends Component {
 
   render() {
     return (
-      <div style={{
+      <div id='main-container' style={{
         width: '100vw',
         height: '100vh',
         backgroundColor: this.state.background,
         transition: 'ease-in-out 0.5s'
       }}>
+      <div id='page-title' style={{
+        padding:'1rem',
+        width: '50rem',
+        fontSize: 50,
+        position: 'relative',
+        left: '34rem',
+        top: '5rem',
+        marginBottom: '-10rem',
+        background: 'linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.5) 100%)',
+        textAlign: 'center',
+
+      }}>Random Quote Machine</div>
       <Grid className={this.props.classes.container} id="quote-box" justify='center' container>
         <Grid xs={9} lg={6} item>
          { 
